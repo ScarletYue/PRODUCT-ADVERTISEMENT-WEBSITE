@@ -1,0 +1,114 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+}
+
+.container {
+    max-width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 30px; 
+}
+
+.h1 {
+    text-align: center;
+    animation: color-cycle 5s infinite linear;
+}
+
+@keyframes color-cycle {
+  0% {
+    color: red;
+  }
+  14% {
+    color: orange;
+  }
+  28% {
+    color: yellow;
+  }
+  42% {
+    color: green;
+  }
+  57% {
+    color: blue;
+  }
+  71% {
+    color: indigo;
+  }
+  85% {
+    color: violet;
+  }
+  100% {
+    color: red;
+  }
+}
+
+.product {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: transform 0.3s ease;
+    overflow: hidden; /* Ensure text doesn't rotate */
+}
+
+.product:hover{
+    transform: scale(1.1);
+}
+
+.product h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.product img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.product p {
+    line-height: 1.5;
+    color: #333;
+}
+
+.product p:first-child {
+    margin-top: 0;
+}
+
+.product p:last-child {
+    margin-bottom: 0;
+}
+
+.span {
+    justify-content: space-between;
+    display: flex;
+}
+
+.pagination {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+.pagination li {
+  cursor: pointer;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.pagination li.activee {
+  background-color: #500000;
+  color: #fff;
+}
