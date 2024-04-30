@@ -1,0 +1,174 @@
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+.container-lienhe {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px;
+}
+.contact-container {
+    flex: 1;
+    max-width: 600px;
+    margin: 0 0;
+    padding: 20px;
+    background-color: #d8edff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.contact-heading {
+    text-align: center;
+    font-weight: bolder;
+    font-size: 50px;
+    color: #2f0000;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+    transition: text-shadow 0.3s; 
+    margin-top: 10px;
+    margin-bottom: 5%;
+}
+
+.contact-heading:hover {
+    text-shadow: 
+        2px 2px 4px rgba(181, 255, 154, 0.7), /* Màu shadow 1 */
+        3px 3px 6px rgba(255, 0, 0, 0.7), /* Màu shadow 2 */
+        4px 4px 8px rgba(144, 69, 255, 0.7); /* Màu shadow 3 */
+}
+
+.heading {
+    font-weight: bolder;
+    font-size: 30px;
+    color: #2f0000;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5); 
+    margin-top: 10px;
+    margin-bottom: 5%;
+}
+
+.contact-form {
+    display: grid;
+    gap: 20px;
+}
+
+.contact-label {
+    font-weight: bold;
+    font-size: 18px;
+    color: #333;
+}
+
+.contact-input,
+.contact-select,
+.contact-textarea {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ccc; /* Màu viền ban đầu */
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s; /* Thêm hiệu ứng chuyển đổi */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Thêm bóng */
+}
+
+.contact-input:focus,
+.contact-select:focus,
+.contact-textarea:focus {
+    border-color: #2f0000; /* Màu viền đỏ khi focus */
+    outline: none; /* Loại bỏ đường viền màu xanh khi focus (trên Chrome) */
+    box-shadow: 0 0 10px rgba(47, 0, 0, 0.5); /* Bóng đỏ khi focus */
+}
+
+.contact-submit {
+    width: 50%;
+    padding: 15px;
+    background-color: #2f0000;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    display: block; 
+    margin: 0 auto; 
+}
+
+.contact-submit:hover {
+    background-color: #4d0000;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+.contact-textarea {
+    height: 150px; /* Đặt chiều cao mong muốn */
+    font-size: 18px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    transition: border-color 0.3s;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.contact-textarea:focus {
+    border-color: #2f0000;
+    outline: none;
+    box-shadow: 0 0 10px rgba(47, 0, 0, 0.5);
+}
+
+.map-container {
+    width: 180%;
+    max-width: 130%; 
+    margin: 0 auto;
+    margin-top: 50px;
+    flex: 1;
+}
+
+.map-container iframe {
+    width: 100%;
+    height: 450px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.address-container {
+    background-color: #d8edff;
+    border-radius: 8px;
+    margin-top: 50px;
+    padding: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); 
+}
+
+.address-container b {
+    color: #2f0000;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.address-container p {
+    margin-bottom: 5px;
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+.address-container p:last-child {
+    margin-bottom: 0;
+}

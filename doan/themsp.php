@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css\themsp.css">
-    <link rel="stylesheet" href="css\index.css">
+    <link rel="stylesheet" href="css\themsp.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="css\index.css?v=<?php echo time(); ?>">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>      </head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdn.tiny.cloud/1/pr34g2xvlk7l80bb0m6ok7g7uqffxm2l9zcgwvu0isfh093m/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
-    <script src="script.js" defer></script>
+    <script src="js\script.js" defer></script>
 
     <title>Quản Lý Sản Phẩm</title>
 </head>
@@ -30,6 +30,7 @@ if ($connect->connect_error) {
 // Xử lý thêm sản phẩm
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_add"])) {
     $name = $_POST['name'];
+    $loainame = $_POST['loainame'];
     $price = $_POST['price'];
     $description = $_POST['description'];
     $baohanh = $_POST['baohanh'];
@@ -55,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_add"])) {
     move_uploaded_file($_FILES["image3"]["tmp_name"], $target_file);
 
     // Thêm dữ liệu vào bảng sản phẩm
-    $sql = "INSERT INTO products (name, image, image2, image3, price, description, baohanh, chatlieu, mota) VALUES ('$name', '$image','$image2', '$image3', '$price', '$description', '$baohanh', '$chatlieu' , '$mota')";
+    $sql = "INSERT INTO products (name, loainame, image, image2, image3, price, description, baohanh, chatlieu, mota) VALUES ('$name', '$loainame', '$image','$image2', '$image3', '$price', '$description', '$baohanh', '$chatlieu' , '$mota')";
     if ($connect->query($sql) === TRUE) {
         echo "";
     } else {
@@ -80,6 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_delete"])) {
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_edit"])) {
     $product_name = $_POST["product_name"];
     $new_name = $_POST["new_name"];
+    $new_loainame = $_POST["new_loainame"];
     $new_price = $_POST["new_price"];
     $new_description = $_POST["new_description"];
     $new_baohanh = $_POST["new_baohanh"];
@@ -105,7 +107,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_edit"])) {
     move_uploaded_file($_FILES["new_image3"]["tmp_name"], $target_file);
 
     // Cập nhật thông tin sản phẩm trong cơ sở dữ liệu
-    $sql = "UPDATE products SET name='$new_name', price='$new_price', description='$new_description', baohanh='$new_baohanh', image='$new_image', image2='$new_image2', image3='$new_image3', chatlieu='$new_chatlieu', mota='$new_mota' WHERE name='$product_name'";
+    $sql = "UPDATE products SET name='$new_name', loainame='$new_loainame', price='$new_price', description='$new_description', baohanh='$new_baohanh', image='$new_image', image2='$new_image2', image3='$new_image3', chatlieu='$new_chatlieu', mota='$new_mota' WHERE name='$product_name'";
     if ($connect->query($sql) === TRUE) {
         echo "";
     } else {
@@ -137,7 +139,9 @@ $connect->close();
         <a href="themsp.php">Thêm Sửa Xóa</a>
         <a href="quanlyuser.php">Quản Lý User</a>
         <a href="quanlysp.php">Quản Lý Sản Phẩm</a>
-        <a href="lienhe.php"> Quản Lý Liên Hệ </a>
+        <a href="quanlylienhe.php"> Quản Lý Liên Hệ </a>
+        <a href="qlthongbao.php"> Quản Lý Thông Báo </a>
+
     </div>
 </header>
 
@@ -150,7 +154,10 @@ $connect->close();
         <?php endif; ?>
         <form action="" method="post" enctype="multipart/form-data" class="form">
             <label for="name">Tên Sản Phẩm:</label>
-            <input class="text"type="text" id="name" name="name" required><br><br>
+            <input class="text"type="text" id="name" name="name" placeholder="Tên Sản Phẩm" required><br><br>
+
+            <label for="name">Loại Sản Phẩm:</label>
+            <input class="text"type="text" id="loainame" name="loainame" placeholder="Loại Sản Phản" required><br><br>
 
             <label for="image">Hình Ảnh Chính:</label>
             <input class="file" type="file" id="image" name="image" accept="image/*" required><br><br>
@@ -162,19 +169,19 @@ $connect->close();
             <input class="file" type="file" id="image3" name="image3" accept="image3/*" required><br><br>
 
             <label for="price">Giá:</label>
-            <input class="text" type="text" id="price" name="price" required><br><br>
+            <input class="text" type="text" id="price" name="price" placeholder="Giá" required><br><br>
 
             <label for="description">Nhà sản xuất:</label><br>
-            <input class="text" type="text" id="description" name="description" rows="4" required></textarea><br><br>
+            <input class="text" type="text" id="description" name="description" rows="4" placeholder="Nhà Sản Xuất" required></textarea><br><br>
 
             <label for="baohanh">Bảo hành:</label>
-            <input class="text" type="text" id="baohanh" name="baohanh" required><br><br>
+            <input class="text" type="text" id="baohanh" name="baohanh" placeholder="Bảo Hành" required><br><br>
 
             <label for="chatlieu">Chất liệu:</label>
-            <input class="text" type="text" id="chatlieu" name="chatlieu" required><br><br>
+            <input class="text" type="text" id="chatlieu" name="chatlieu" placeholder="Chất Liệu" required><br><br>
 
             <label for="mota">Mô tả:</label><br>
-            <textarea id="mota" name="mota"></textarea><br><br>
+            <textarea id="mota" name="mota" placeholder="Mô Tả"></textarea><br><br>
 
             <button class="submit" type="submit" name="submit_add">Thêm Sản Phẩm</button>
         </form>
@@ -187,7 +194,7 @@ $connect->close();
         <?php endif; ?>
         <form action="" method="post" class="form">
             <label for="product_name">Nhập tên sản phẩm để xóa:</label>
-            <input class="text" type="text" id="product_name" name="product_name" required><br><br>
+            <input class="text" type="text" id="product_name" name="product_name" placeholder="Tên Sản Phẩm" required><br><br>
             <button class="submit" type="submit" name="submit_delete">Xóa Sản Phẩm</button>
         </form>
     </div>
@@ -199,10 +206,13 @@ $connect->close();
     <?php endif; ?>
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data" class="form">
         <label for="product_name">Nhập tên sản phẩm cần sửa:</label>
-        <input class="text" type="text" id="product_name" name="product_name" required><br><br>
+        <input class="text" type="text" id="product_name" name="product_name" placeholder="Nhập tên sản phẩm cần sửa" required><br><br>
 
         <label for="new_name">Tên mới:</label>
-        <input class="text" type="text" id="new_name" name="new_name" required><br><br>
+        <input class="text" type="text" id="new_name" name="new_name" placeholder="Tên Sản Phẩm mới" required><br><br>
+
+        <label for="new_name">Loại mới:</label>
+        <input class="text" type="text" id="new_loainame" name="new_loainame" placeholder="Loại Sản Phẩm mới" required><br><br>
         
         <label for="new_image">Hình Ảnh Chính mới:</label><br>
         <input class="file" type="file" id="new_image" name="new_image" accept="image/*" required><br><br>
@@ -214,19 +224,19 @@ $connect->close();
         <input class="file" type="file" id="new_image3" name="new_image3" accept="image/*" required><br><br>
 
         <label for="new_price">Giá mới:</label>
-        <input class="text" type="text" id="new_price" name="new_price" required><br><br>
+        <input class="text" type="text" id="new_price" name="new_price" placeholder="Giá mới" required><br><br>
 
         <label for="new_description">Nhà sản xuất:</label><br>
-        <input class="text" type="text" id="new_description" name="new_description" rows="4" required></textarea><br><br>
+        <input class="text" type="text" id="new_description" name="new_description" rows="4" placeholder="Nhà Sản Xuất" required></textarea><br><br>
 
         <label for="new_baohanh">Bảo hành:</label>
-        <input class="text" type="text" id="new_baohanh" name="new_baohanh" required><br><br>
+        <input class="text" type="text" id="new_baohanh" name="new_baohanh" placeholder="Bảo Hành mới" required><br><br>
 
         <label for="new_chatlieu">Chất liệu:</label>
-        <input class="text" type="text" id="new_chatlieu" name="new_chatlieu" required><br><br>
+        <input class="text" type="text" id="new_chatlieu" name="new_chatlieu" placeholder="Chất Liệu mới" required><br><br>
 
         <label for="new_mota">Mô tả:</label><br>
-        <textarea id="new_mota" name="new_mota" ></textarea><br><br>
+        <textarea id="new_mota" name="new_mota" placeholder="Mô Tả mới" ></textarea><br><br>
 
         <button class="submit" type="submit" name="submit_edit">Sửa Sản Phẩm</button>
     </form>
@@ -239,3 +249,10 @@ $connect->close();
         toolbar_mode: 'floating',
     });
 </script>
+
+<div class="phone-number">
+  <a href="tel:0986241439" style = "text-decoration: none;">
+    <span class="phone-icon">&#9742;</span>
+    <span class="phone-text">0986 241 439</span>
+  </a>
+</div>

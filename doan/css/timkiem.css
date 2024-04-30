@@ -12,62 +12,6 @@ body {
     animation: color-cycle 5s infinite linear;
 }
 
-/* Định dạng container */
-.container {
-    max-width: 80%;
-    margin: 0 auto;
-    padding: 20px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-}
-
-/* Định dạng mỗi sản phẩm */
-.product {
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    transition: transform 0.3s ease;
-    overflow: hidden; /* Đảm bảo văn bản không bị quay khi hover */
-}
-
-/* Hiệu ứng phóng to khi hover */
-.product:hover img {
-    transform: scale(1.1);
-}
-
-/* Định dạng tiêu đề sản phẩm */
-.product h2 {
-    font-size: 1.5em;
-    margin-bottom: 10px;
-}
-
-/* Định dạng hình ảnh sản phẩm */
-.product img {
-    display: block;
-    max-width: 100%;
-    height: auto;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    transition: transform 0.3s ease; /* Áp dụng hiệu ứng cho hình ảnh */
-}
-
-/* Định dạng mô tả sản phẩm */
-.product p {
-    line-height: 1.5;
-    color: #333;
-}
-
-/* Định dạng dòng đầu tiên của mô tả */
-.product p:first-child {
-    margin-top: 0;
-}
-
-/* Định dạng dòng cuối cùng của mô tả */
-.product p:last-child {
-    margin-bottom: 0;
-}
 
 /* Hiệu ứng chuyển đổi màu sắc cho tiêu đề */
 @keyframes color-cycle {
