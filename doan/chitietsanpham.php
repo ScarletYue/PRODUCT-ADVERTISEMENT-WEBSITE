@@ -115,7 +115,7 @@ $connect->close();
       <header>
     <div>
         <a href="index.php" style="margin-left:5%;">Trang Chủ</a>
-        <a href="themsp.php">Giới thiệu</a>
+        <a href="vechungtoi.php">Về Chúng Tôi</a>
         <?php
         // Kết nối đến cơ sở dữ liệu MySQL
         $username = "root"; // Khai báo username
@@ -210,46 +210,6 @@ $connect->close();
     $connect = new mysqli($server, $username, $password, $dbname);
     if ($connect->connect_error) {
         die("Kết nối không thành công: " . $connect->connect_error);
-    }
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Kiểm tra xem người dùng đã đăng nhập hay chưa
-        if(isset($_SESSION['is_users']) && $_SESSION['is_users']) {
-            // Lấy thông tin sản phẩm từ form
-            $product_id = $_POST['product_id'];
-    
-            // Thực hiện thêm sản phẩm vào giỏ hàng
-            $sql = "SELECT * FROM products WHERE id = $product_id";
-            $result = $connect->query($sql);
-    
-            if ($result->num_rows > 0) {
-                // Lấy thông tin chi tiết sản phẩm
-                $row = $result->fetch_assoc();
-    
-                // Thêm sản phẩm vào giỏ hàng
-                if (!isset($_SESSION['orders'])) {
-                    $_SESSION['orders'] = array();
-                }
-    
-                $product = array(
-                    'id' => $row['id'],
-                    'name' => $row['name'],
-                    'image' => $row['image'],
-                    'soluong' => 1
-                );
-                
-                array_push($_SESSION['orders'], $product);
-    
-                // Chuyển hướng người dùng đến trang giỏ hàng sau khi thêm sản phẩm
-                header('Location: viewgiohang.php');
-                exit;
-            } else {
-                echo "Không tìm thấy sản phẩm.";
-            }
-        } else {
-            // Nếu chưa đăng nhập, chuyển hướng đến trang đăng nhập
-            header('Location: chitietsanpham.php?error=login_required');
-            exit;
-        }
     }
     // Lấy id sản phẩm từ URL
     if(isset($_GET['id'])) {

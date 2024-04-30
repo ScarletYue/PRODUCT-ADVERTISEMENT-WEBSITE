@@ -112,7 +112,7 @@ $connect->close();
       <header>
     <div>
         <a href="index.php" style="margin-left:5%;">Trang Chủ</a>
-        <a href="themsp.php">Giới thiệu</a>
+        <a href="vechungtoi.php">Về Chúng Tôi</a>
         <?php
         // Kết nối đến cơ sở dữ liệu MySQL
         $username = "root"; // Khai báo username

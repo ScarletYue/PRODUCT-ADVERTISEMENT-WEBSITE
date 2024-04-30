@@ -1,0 +1,110 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Thêm keyframes cho hiệu ứng */
+@keyframes slideInDown {
+    0% {
+        transform: translateY(-30px); /* Bắt đầu từ vị trí trên cao */
+        opacity: 0; /* Độ trong suốt ban đầu */
+    }
+    100% {
+        transform: translateY(0); /* Di chuyển xuống */
+        opacity: 1; /* Hiển thị đầy đủ */
+    }
+}
+
+/* Áp dụng hiệu ứng cho container */
+.container12 {
+    width: 50%;
+    margin: 20px auto;
+    background-color: #d8edff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px #2f0000;
+    animation: slideInDown 0.5s ease; /* Sử dụng hiệu ứng slideInDown */
+}
+
+.container12:hover {
+    box-shadow: 0 0 15px #940000; /* Tăng độ sắc nét khi hover */
+}
+
+.dk {
+    text-align: center;
+    font-weight: bolder;
+    font-size: 40px;
+    color: #2f0000;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5); /* Hiệu ứng shadow */
+    transition: text-shadow 0.3s; /* Hiệu ứng chuyển đổi khi hover */
+}
+
+.dk:hover {
+    text-shadow: 
+        2px 2px 4px rgba(181, 255, 154, 0.7), /* Màu shadow 1 */
+        3px 3px 6px rgba(255, 0, 0, 0.7), /* Màu shadow 2 */
+        4px 4px 8px rgba(144, 69, 255, 0.7); /* Màu shadow 3 */
+}
+
+.label {
+    display: block;
+    margin-top: 5%;
+    font-weight: bold;
+    font-size: 20px;
+    color: #2f0000; /* Màu chữ */
+}
+
+.text,
+.password,
+.date,
+.email,
+.textarea,
+.select {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc; /* Màu viền ban đầu */
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s, box-shadow 0.3s; /* Thêm hiệu ứng chuyển đổi */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Thêm bóng */
+}
+
+.text:focus,
+.password:focus,
+.date:focus,
+.email:focus,
+.textarea:focus,
+.select:focus {
+    border-color: #2f0000; /* Màu viền đỏ khi focus */
+    outline: none; /* Loại bỏ đường viền màu xanh khi focus (trên Chrome) */
+    box-shadow: 0 0 10px rgba(47, 0, 0, 0.5); /* Bóng đỏ khi focus */
+}
+
+.text:hover,
+.password:hover,
+.date:hover,
+.email:hover,
+.textarea:hover,
+.select:hover {
+    border-color: #2f0000; /* Thay đổi màu viền khi hover */
+}
+
+.submit {
+    width: calc(50% - 20px);
+    background-color: #2f0000;
+    color: #fff;
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bolder;
+    transition: background-color 0.3s; /* Hiệu ứng chuyển đổi khi hover */
+}
+
+.submit:hover {
+    background-color: #ff9999; /* Thay đổi màu nút khi hover */
+    box-shadow: 0 0 10px #ff9999; /* Hiệu ứng shadow khi hover */
+}

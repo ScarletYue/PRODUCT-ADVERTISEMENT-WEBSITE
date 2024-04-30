@@ -137,11 +137,11 @@ $connect->close();
     <div>
         <a href="index.php" style="margin-left:5%;">Trang Chủ</a>
         <a href="themsp.php">Thêm Sửa Xóa</a>
-        <a href="quanlyuser.php">Quản Lý User</a>
-        <a href="quanlysp.php">Quản Lý Sản Phẩm</a>
-        <a href="quanlylienhe.php"> Quản Lý Liên Hệ </a>
-        <a href="qlthongbao.php"> Quản Lý Thông Báo </a>
-
+        <a href="quanlyuser.php">QL User</a>
+        <a href="quanlyvct.php">QL Về Chúng Tôi</a>
+        <a href="quanlysp.php">QL Sản Phẩm</a>
+        <a href="quanlylienhe.php"> QL Liên Hệ </a>
+        <a href="quanlythongbao.php"> QL Thông Báo </a>
     </div>
 </header>
 
