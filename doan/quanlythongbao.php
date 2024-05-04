@@ -168,12 +168,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mail->CharSet    = 'UTF-8';
         $mail->Host       = 'smtp.gmail.com';                     
         $mail->SMTPAuth   = true;                                   
-        $mail->Username   = 'trucanhcongty@gmail.com';                     
-        $mail->Password   = 'ffsskjfxjnefjuff';                               
+        $mail->Username   = '***@gmail.com';                     
+        $mail->Password   = '';                               
         $mail->SMTPSecure = 'ssl';            
         $mail->Port       = 465;       
 
-        $mail->setFrom('trucanhcongty@gmail.com', 'Công Ty Trúc Anh');
+        $mail->setFrom('***@gmail.com', 'namemail');
 
         // Thêm các địa chỉ email vào danh sách nhận
         if ($result->num_rows > 0) {
