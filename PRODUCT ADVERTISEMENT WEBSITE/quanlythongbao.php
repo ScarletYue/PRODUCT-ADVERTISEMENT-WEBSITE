@@ -207,9 +207,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 <div class="phone-number">
-  <a href="tel:0986241439" style = "text-decoration: none;">
+  <a href="tel:0000000000" style = "text-decoration: none;">
     <span class="phone-icon">&#9742;</span>
-    <span class="phone-text">0986 241 439</span>
+    <span class="phone-text">00000000000</span>
   </a>
 </div>
 
@@ -219,8 +219,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="footer">
             <div class="footer1">
               <p>Đường Tứ Kiệt, Thị Xã Cai Lậy, Tỉnh Tiền Giang</p>
-              <p>Điện thoại: <a href="tel:0986241439" style = "text-decoration: none; color: #ff9999">0986241439</a> - <a href="tel:0948905239" style = "text-decoration: none; color: #ff9999">0948905239</a></p>
-              <p>Email:<a href="mailto:yenconguyet@gmail.com" style = "text-decoration: none; color: #ff9999"> cosomoctruc@gmail.com</a></p>
+              <p>Điện thoại: <a href="tel:0000000000" style = "text-decoration: none; color: #ff9999">0000000000</a> - <a href="tel:0000000000" style = "text-decoration: none; color: #ff9999">00000000000</a></p>
+              <p>Email:<a href="mailto:***@gmail.com" style = "text-decoration: none; color: #ff9999"> ***@gmail.com</a></p>
               <img src="img\Facebook_Logo.png" class="linklogo"> 
               <img src="img\Gmail_icon.png" class="linklogo"> 
             </div>

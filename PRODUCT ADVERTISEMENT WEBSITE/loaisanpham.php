@@ -1,21 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/index.css?v=<?php echo time(); ?>">
-    <link rel="stylesheet" href="css\chitiet.css?v=<?php echo time(); ?>">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>      </head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <title>Chi tiết sản phẩm</title>
-</head><style>
-        .logout-btn {
-            display: <?php echo $is_admin ? 'inline-block' : 'none'; ?>; /* Ẩn hoặc hiển thị nút tùy thuộc vào quyền admin */
-        }
-    </style>
-    <?php
+<?php
 
 session_start(); // Bắt đầu phiên làm việc
 
@@ -35,7 +18,7 @@ $_SESSION = array();
  
 session_destroy();
 // Chuyển hướng người dùng về trang đăng nhập
-    header('Location: danhmucsp.php');   
+    header('Location: index.php');   
 exit;
 }
 // Kiểm tra nếu có yêu cầu đăng xuất
@@ -94,11 +77,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 
+
 $connect->close();
 ?>
-
-        <body>
-      <div class="topnav">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loại Sản Phẩm</title>
+    <link rel="stylesheet" href="css\dmsp.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="css\index.css?v=<?php echo time(); ?>">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+<div class="topnav">
         <img src="img\logo.jpg" class="logo1"> 
         <img src="img\namelogo.jpg" class="namelogo"> 
         <img src="img\Facebook_Logo.png" class="linklogo"> 
@@ -147,7 +144,7 @@ $connect->close();
           echo "Không có loại sản phẩm nào.";
         }
         $connect->close();
-        ?>
+        ?>        
         <a href="lienhe.php"> Liên hệ </a>
 
         <?php if(isset($_SESSION['is_admin']) && $_SESSION['is_admin']): ?>
@@ -155,12 +152,12 @@ $connect->close();
     <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin']): ?>
     <a href="themsp.php"  style=" margin-right: 5px; margin-top: -6px; font-size: 15px;">Quản lý</a>
     <?php endif; ?>
-    <a href="chitietsanpham.php?logout=true" class="btn btn-primary" style="background-color:rgb(93, 93, 93); margin-right: 5px; margin-top: -6px;">Đăng xuất</a>
+    <a href="danhmucsp.php?logout=true" class="btn btn-primary" style="background-color:rgb(93, 93, 93); margin-right: 5px; margin-top: -6px;">Đăng xuất</a>
   <?php elseif(isset($_SESSION['is_users']) && $_SESSION['is_users']): ?>
     <!-- Nếu đăng nhập với tư cách users, hiển thị nút "Quản lý" và "Đăng xuất" -->
     <?php if (isset($_SESSION['is_users']) && $_SESSION['is_users']): ?>
     <?php endif; ?>
-    <a href="chitietsanpham.php?logout=true" class="btn btn-primary" style="background-color:rgb(93, 93, 93); margin-right: 5px; margin-top: -6px;">Đăng xuất</a>
+    <a href="danhmucsp.php?logout=true" class="btn btn-primary" style="background-color:rgb(93, 93, 93); margin-right: 5px; margin-top: -6px;">Đăng xuất</a>
 <?php else: ?>
     <!-- Nếu không phải admin, hiển thị nút "Đăng nhập" -->
     <button class="btn btn-primary" style="background-color:rgb(93, 93, 93); margin-right: 5px; margin-top: -6px;" type="button" data-bs-toggle="modal" data-bs-target="#loginModal">
@@ -195,68 +192,108 @@ $connect->close();
         </div>
     </div>
 </header>
-
-<br>
-<h1 style = "text-align: center; margin-top: 2%; margin-bottom: 4%;" class='h1'>Chi Tiết Sản Phẩm</h1>
-<div class="chitiet">
     <?php
-    // Thông tin kết nối database
-    $username = "root";
-    $password = "";
-    $server = "localhost";
-    $dbname = "webtintuc";
-
-    // Kết nối đến cơ sở dữ liệu
-    $connect = new mysqli($server, $username, $password, $dbname);
-    if ($connect->connect_error) {
-        die("Kết nối không thành công: " . $connect->connect_error);
-    }
-    // Lấy id sản phẩm từ URL
-    if(isset($_GET['id'])) {
-        $product_id = $_GET['id'];
-
-        // Truy vấn dữ liệu của sản phẩm có id tương ứng
-        $sql = "SELECT * FROM products WHERE id = $product_id";
-        $result = $connect->query($sql);
-
-        if ($result->num_rows > 0) {
-            // Hiển thị chi tiết sản phẩm
-            $row = $result->fetch_assoc();
-            echo "<div class='chitietproduct'>";
-            echo "<img src='img/" . $row["image"] . "' alt='" . $row["name"] . "' class='img'>";
-            echo "<div class='product' style='margin-left: 0%;'>";
-            echo "<h2 style = 'width : 100%; font-weight: bold; color: #5a0700; '>" . $row["name"] . "</h2>";
-            echo "<strong><a href='lienhe.php' style = ' color: black; font-size: 30px' >Giá: " . $row["price"] . " </a></strong>";
-            echo "<p><strong>Nhà sản xuất:</strong> " . $row["description"] . "</p>";
-            echo "<p><strong>Bảo hành: </strong>" . $row["baohanh"] . "</p>";
-            echo "<p><strong>Chất liệu: </strong>" . $row["chatlieu"] . "</p>";
-            echo "<p><strong>Thời gian đăng sản phẩm: </strong>" . $row["created_at"] . "</p>";
-            echo "<a href='lienhe.php'><button type='submit' name='lienhe' class='btn' style='background-color: #2f0000; color : white; font-weight : bold; margin-right: 5px; font-size: 15px;'>Liên hệ</button></a>";
-            echo "</div>";
-            echo "<div class= 'imagephu overlay'>";
-            echo "<img src='img/" . $row["image2"] . "' alt='" . $row["name"] . "' class='img1 overlay-trigger'>";
-            echo "<img src='img/" . $row["image3"] . "' alt='" . $row["name"] . "' class='img2 overlay-trigger'>";
-            echo "</div>";
-            echo "</div>";
-            echo "<hr style='border: 1px solid black; width: 70%; margin-top: 7%;'>";
-            echo "<div class= 'mota'>";
-            echo "<p style = 'font-size: 20px; margin-left: 5%; font-weight: bold; color: #5a0700;'>Mô tả: " . $row["mota"] . "</p>";
-            echo "</div>";
-        } else {
-            echo "Không tìm thấy sản phẩm.";
-        }
-    } else {
-        echo "Không tìm thấy id sản phẩm.";
-    }
-
-    // Đóng kết nối
-    $connect->close();
+    $loainame = $_GET["loainame"];
     ?>
+    <h1 class='h1' style='width: 100%; height: 10%; background-color: #d8edff; font-size: 50px; font-weight: bold; text-align: center; margin-bottom: 2%; padding-bottom: 3%; padding-top: 3%;'>Tất cả sản phẩm <br><?php echo $loainame; ?></h1>
+
+    <div class="container">
     
-</div><div class="phone-number">
-  <a href="tel:0986241439" style = "text-decoration: none;">
+    <?php
+$username = "root";
+$password = "";
+$server = "localhost";
+$dbname = "webtintuc";
+
+// Kết nối đến cơ sở dữ liệu
+$connect = new mysqli($server, $username, $password, $dbname);
+if ($connect->connect_error) {
+    die("Kết nối không thành công: " . $connect->connect_error);
+}
+
+// Truy vấn dữ liệu từ bảng products dựa trên loainame
+$sql = "SELECT * FROM products WHERE loainame = '$loainame'";
+$result = $connect->query($sql);
+
+if ($result->num_rows > 0) {
+    // Hiển thị danh sách sản phẩm
+    while ($row = $result->fetch_assoc()) {
+        echo "<div class='product'>";
+        echo "<h2> " . $row["name"] . "</h2>";
+        echo "<img src='img/" . $row["image"] . "' alt='" . $row["name"] . "'>";
+        echo "<strong><a href='lienhe.php' style = 'text-decoration: none; color: black; font-size: 20px' >Giá: " . $row["price"] . " </a></strong>";
+        echo "<p>" . $row["description"] . "</p>";
+        echo "<span class='span'><p>Bảo hành: " . $row["baohanh"] . "</p> <p>" . $row["created_at"] . "</p></span>";
+        echo "<button><a href='chitietsanpham.php?id=" . $row["id"] . "' class='btn' style = 'background-color: #2f0000; color : white; font-weight : bold'>" . "Chi tiết" . "</a></button>";
+        echo "</div>";
+    }
+} else {
+    echo "Không có sản phẩm nào.";
+}
+
+// Đóng kết nối
+$connect->close();
+?>
+</div>
+<div class="col-12">
+    <ul class="pagination d-flex justify-content-center mt-5">
+        
+    </ul>
+</div>
+<script>
+    let thisPage = 1; let limit = 6;
+    let list = document.querySelectorAll('.product');
+    function loadItem(){
+        let bigin=limit *(thisPage-1);
+        let end=limit *thisPage-1;
+        list.forEach((item,key)=>{
+            if(key >=bigin && key<=end){
+                item.style.display='block';
+            }else{
+                item.style.display='none';
+            }
+        })
+        listPage();
+    }
+    loadItem();
+    function listPage(){
+        let countt =Math.ceil(list.length / limit);
+        document.querySelector('.pagination').innerHTML ='';
+        //pagination:là class của thẻ ul
+
+        if(thisPage !=1){
+            let quayToi=document.createElement('li');
+            quayToi.innerText="<=";
+            quayToi.setAttribute('onclick',"changePage("+(thisPage-1)+")");
+            document.querySelector('.pagination').appendChild(quayToi);
+        }
+
+        for(i=1;i<=countt;i++){
+            let newPage=document.createElement('li');
+            newPage.innerText=i;
+            if(i == thisPage){
+                newPage.classList.add('activee');
+            }
+            newPage.setAttribute('onclick',"changePage("+i+")");
+            document.querySelector('.pagination').appendChild(newPage);
+        }
+
+        if(thisPage !=countt){
+            let quayVe=document.createElement('li');
+            quayVe.innerText="=>";
+            quayVe.setAttribute('onclick',"changePage("+(thisPage+1)+")");
+            document.querySelector('.pagination').appendChild(quayVe);}
+    }
+    function changePage(i){
+        thisPage =i;
+        loadItem();
+    }
+</script>
+
+<div class="phone-number">
+  <a href="tel:0000000000" style = "text-decoration: none;">
     <span class="phone-icon">&#9742;</span>
-    <span class="phone-text">0986 241 439</span>
+    <span class="phone-text">00000000000</span>
   </a>
 </div>
 
@@ -266,8 +303,8 @@ $connect->close();
     <div class="footer">
             <div class="footer1">
               <p>Đường Tứ Kiệt, Thị Xã Cai Lậy, Tỉnh Tiền Giang</p>
-              <p>Điện thoại: <a href="tel:0986241439" style = "text-decoration: none; color: #ff9999">0986241439</a> - <a href="tel:0948905239" style = "text-decoration: none; color: #ff9999">0948905239</a></p>
-              <p>Email:<a href="mailto:trucanhcongty@gmail.com" style = "text-decoration: none; color: #ff9999"> trucanhcongty@gmail.com</a></p>
+              <p>Điện thoại: <a href="tel:0000000000" style = "text-decoration: none; color: #ff9999">0000000000</a> - <a href="tel:0000000000" style = "text-decoration: none; color: #ff9999">00000000000</a></p>
+              <p>Email:<a href="mailto:***@gmail.com" style = "text-decoration: none; color: #ff9999"> ***@gmail.com</a></p>
               <img src="img\Facebook_Logo.png" class="linklogo"> 
               <img src="img\Gmail_icon.png" class="linklogo"> 
             </div>
@@ -287,6 +324,7 @@ $connect->close();
             </div>
     </div>
     
+    
   </footer>
     <div class="footer2">
     <div class="container2">
@@ -295,3 +333,20 @@ $connect->close();
     </div>
 </body>
 </html>
+<script>
+        // Mã JavaScript để chuyển hướng khi nhấp vào loại sản phẩm
+        document.addEventListener('DOMContentLoaded', function() {
+            // Lặp qua các thẻ <a> của loại sản phẩm
+            document.querySelectorAll('.dropdown-menu a').forEach(function(element) {
+                // Lắng nghe sự kiện nhấp chuột
+                element.addEventListener('click', function(event) {
+                    // Ngăn chặn hành động mặc định của thẻ <a>
+                    event.preventDefault();
+                    // Lấy giá trị của thuộc tính href (URL)
+                    var href = this.getAttribute('href');
+                    // Chuyển hướng người dùng đến trang danh mục sản phẩm với tham số loainame trên URL
+                    window.location.href = href;
+                });
+            });
+        });
+    </script>

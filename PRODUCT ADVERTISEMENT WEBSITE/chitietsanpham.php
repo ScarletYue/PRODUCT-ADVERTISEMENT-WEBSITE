@@ -1,17 +1,16 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>index</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="css\index.css?v=<?php echo time(); ?>">
-        <link rel="stylesheet" href="css\dmsp.css?v=<?php echo time(); ?>">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5+z5G5CJd6J8kTC0gx0xbs+JDAWI5l/2fnv9J+Ld" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-      </head>
-    <style>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/index.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="css\chitiet.css?v=<?php echo time(); ?>">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>      
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>Chi tiết sản phẩm</title>
+</head><style>
         .logout-btn {
             display: <?php echo $is_admin ? 'inline-block' : 'none'; ?>; /* Ẩn hoặc hiển thị nút tùy thuộc vào quyền admin */
         }
@@ -36,7 +35,7 @@ $_SESSION = array();
  
 session_destroy();
 // Chuyển hướng người dùng về trang đăng nhập
-    header('Location: index.php');   
+    header('Location: danhmucsp.php');   
 exit;
 }
 // Kiểm tra nếu có yêu cầu đăng xuất
@@ -76,6 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       
       // Cập nhật số lần đăng nhập và thời điểm đăng nhập cuối cùng
       $dangnhap = $user_row['dangnhap'] + 1;
+      
       // Cập nhật thông tin vào bảng login
       $update_query = "UPDATE login SET dangnhap = $dangnhap WHERE username = '$input_username'";
       if ($connect->query($update_query) === TRUE) {
@@ -92,6 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       echo "Cặp username và password không tồn tại trong bảng login.";
   }
 }
+
 
 $connect->close();
 ?>
@@ -154,12 +155,12 @@ $connect->close();
     <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin']): ?>
     <a href="themsp.php"  style=" margin-right: 5px; margin-top: -6px; font-size: 15px;">Quản lý</a>
     <?php endif; ?>
-    <a href="index.php?logout=true" class="btn btn-primary" style="background-color:rgb(93, 93, 93); margin-right: 5px; margin-top: -6px;">Đăng xuất</a>
+    <a href="chitietsanpham.php?logout=true" class="btn btn-primary" style="background-color:rgb(93, 93, 93); margin-right: 5px; margin-top: -6px;">Đăng xuất</a>
   <?php elseif(isset($_SESSION['is_users']) && $_SESSION['is_users']): ?>
     <!-- Nếu đăng nhập với tư cách users, hiển thị nút "Quản lý" và "Đăng xuất" -->
     <?php if (isset($_SESSION['is_users']) && $_SESSION['is_users']): ?>
     <?php endif; ?>
-    <a href="index.php?logout=true" class="btn btn-primary" style="background-color:rgb(93, 93, 93); margin-right: 5px; margin-top: -6px;">Đăng xuất</a>
+    <a href="chitietsanpham.php?logout=true" class="btn btn-primary" style="background-color:rgb(93, 93, 93); margin-right: 5px; margin-top: -6px;">Đăng xuất</a>
 <?php else: ?>
     <!-- Nếu không phải admin, hiển thị nút "Đăng nhập" -->
     <button class="btn btn-primary" style="background-color:rgb(93, 93, 93); margin-right: 5px; margin-top: -6px;" type="button" data-bs-toggle="modal" data-bs-target="#loginModal">
@@ -195,122 +196,79 @@ $connect->close();
     </div>
 </header>
 
+<br>
+<h1 style = "text-align: center; margin-top: 2%; margin-bottom: 4%;" class='h1'>Chi Tiết Sản Phẩm</h1>
+<div class="chitiet">
+    <?php
+    // Thông tin kết nối database
+    $username = "root";
+    $password = "";
+    $server = "localhost";
+    $dbname = "webtintuc";
 
-<div style="display: flex;">
-<div id="carouselExampleAutoplaying" class="carousel slide" style=" flex: 1; width:70%; height:auto; margin-right: 3%;" data-bs-ride="carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="img\bia1.jpg" class="d-block w-100" alt="bia1">
-    </div>
-    <div class="carousel-item">
-      <img src="img\bia3.jpg" class="d-block w-100" alt="bia3">
-    </div>
-    <div class="carousel-item">
-      <img src="img\bia2.jpg" class="d-block w-100" alt="bia2">
-    </div>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-  <section class="banner">
-    <div class="text-banner">
-        <h1 class="vechungtoi" style = "font-size: 40px;"> <marquee behavior="right">CÔNG TY TNHH MTV TRÚC ANH </marquee></h1>
-        <h2><strong>Trang Trí Nội Thất</strong></h2>
-        <a href="danhmucsp.php" class="btn" style = "background-color: #2f0000; color : white; font-weight : bold">Xem thêm sản phẩm</a>
-    </div>
-  </section>
-</div>
-<div class="card" style="width: 18rem;">
-  <div class="container1">
-    <img src="img\card1.jpg" alt="Ảnh 1" class="img-1">
-    <img src="img\card2.jpg" alt="Ảnh 2" class="img-2">
-  </div>
-  <div class="card-body">
-    <h3 class="card-title">Kính Chào Mừng Quý Khách</h3>
-    <p class="card-text">Chào mừng bạn đến với bộ sưu tập sản phẩm làm bằng gỗ của chúng tôi! Tại đây, chúng tôi tự hào giới thiệu những sản phẩm chất lượng, được chế tác tinh tế từ gỗ tự nhiên. Từ những chiếc bàn, ghế, đến đồ trang trí nội thất và đồ dùng gia đình, mỗi món đồ đều mang đến không gian ấm áp và sang trọng cho ngôi nhà của bạn. Duyệt qua bộ sưu tập của chúng tôi để khám phá sự đẹp mắt và độ bền của các sản phẩm làm bằng gỗ độc đáo này!</p>
-    <a href="danhmucsp.php" class="btn btn-primary " style="background-color: #2f0000; color : white; font-weight : bold; margin-right: 5px; font-size: 15px;">Sản Phẩm</a>  </div>
-</div>
-</div>
-<section class="gioithieu">
-  <h2 class="neon-border" style = "margin-left: 5%;">VỀ CHÚNG TÔI</h2>
-  <div style="display: flex;">
-    <div style="margin-right: 5%; margin-left: 5%;  flex: 1; width:80%; height:auto;">
-      Chào mừng đến với <b style="font-family:'Comic sans MS';">Công Ty TNHH MTV TRÚC ANH</b>
-    Chúng tôi là một đội ngũ chuyên nghiệp trong lĩnh vực trang trí nội thất, tận dụng sự sáng tạo và kỹ năng chuyên môn để biến những không gian sống thành những nơi đẹp đẽ, ấm áp và đáng sống.
-    <br>
-    Tại <b style="font-family:'Comic sans MS';">Công Ty TNHH MTV TRÚC ANH</b>, chúng tôi hiểu rằng mỗi ngôi nhà là một câu chuyện riêng và việc tạo ra không gian sống lý tưởng không chỉ đòi hỏi sự tinh tế trong thiết kế mà còn cần phải phản ánh cá tính và phong cách của chủ nhân. Chính vì vậy, chúng tôi cam kết đem lại dịch vụ tư vấn và thiết kế cá nhân hóa, từ việc lên ý tưởng ban đầu cho đến việc thực hiện mọi chi tiết nhỏ nhất, nhằm đảm bảo mỗi dự án đều phản ánh đúng bản sắc và mong muốn của khách hàng.
-    Với đội ngũ kiến ​trúc sư, thiết kế nội thất và kỹ sư chuyên nghiệp, chúng tôi tự hào về khả năng kết hợp giữa ý tưởng sáng tạo và kỹ thuật chuyên môn để tạo ra những không gian sống độc đáo và đẳng cấp. Chất lượng là ưu tiên hàng đầu của chúng tôi, từ việc lựa chọn vật liệu đến quy trình thi công, mỗi bước đều được thực hiện với sự tỉ mỉ và chuyên nghiệp nhất.
-    Chúng tôi tin rằng mỗi không gian sống đều có thể trở nên đặc biệt và đẹp đẽ theo cách riêng của nó. 
-    <br>
-    Hãy để <b style="font-family:'Comic sans MS';">Công Ty TNHH MTV TRÚC ANH</b> trở thành người bạn đồng hành đáng tin cậy, biến giấc mơ của bạn về một không gian sống hoàn hảo thành hiện thực.
-    Hãy liên hệ với chúng tôi ngay hôm nay để bắt đầu hành trình trang trí nội thất của bạn!
-    
-  </div>
-    <div style="width: 18rem;">
-      <img src="img\card1.jpg" alt="Ảnh 1" class="img-3">
-    </div>
-  </div>
-  <a href="vechungtoi.php" style = "text-decoration: none;"><button class="xem" style = " margin-bottom: 3%;"> Xem thêm </button></a>
-</section>
-<section style = 'margin-top: 3%; margin-bottom: 3%;'>
-  <h2 class="vechungtoi" style = 'text-align: center; font-size: 50px' >Sản phẩm trưng bày</h2>
-  
-  <ul class="container" style ="width: 70%; height: 30%; margin-top: 3%;">
-        <?php
-        // Kết nối đến cơ sở dữ liệu MySQL
-        $username = "root"; // Khai báo username
-        $password = "";      // Khai báo password
-        $server   = "localhost";   // Khai báo server
-        $dbname   = "webtintuc";   // Khai báo database
+    // Kết nối đến cơ sở dữ liệu
+    $connect = new mysqli($server, $username, $password, $dbname);
+    if ($connect->connect_error) {
+        die("Kết nối không thành công: " . $connect->connect_error);
+    }
+    // Lấy id sản phẩm từ URL
+    if(isset($_GET['id'])) {
+        $product_id = $_GET['id'];
 
-        // Kết nối database
-        $connect = new mysqli($server, $username, $password, $dbname);
-
-        $sql = "SELECT * FROM products ORDER BY id DESC LIMIT 3";;
+        // Truy vấn dữ liệu của sản phẩm có id tương ứng
+        $sql = "SELECT * FROM products WHERE id = $product_id";
         $result = $connect->query($sql);
 
-        if ($connect->connect_error) {
-            die("Kết nối thất bại: " . $connect->connect_error);
-        }
-
         if ($result->num_rows > 0) {
-        // Hiển thị danh sách sản phẩm
-        while ($row = $result->fetch_assoc()) {
-          echo "<div class='product'>";
-          echo "<h2> " . $row["name"] . "</h2>";
-          echo "<img src='img/" . $row["image"] . "' alt='" . $row["name"] . "'>";
-          echo "<strong><a href='lienhe.php' style = 'text-decoration: none; color: black; font-size: 20px' >Giá: " . $row["price"] . " </a></strong>";
-          echo "<p>" . $row["description"] . "</p>";
-          echo "<span class='span' style = 'text-decoration: none; color: black; font-size: 13px' ><p>Bảo hành: " . $row["baohanh"] . "</p> <p>" . $row["created_at"] . "</p></span>";
-          echo "<button><a href='chitietsanpham.php?id=" . $row["id"] . "' class='btn' style = 'background-color: #2f0000; color : white; font-weight : bold'>" . "Chi tiết" . "</a></button>";
-          echo "</div>";
-        }
+            // Hiển thị chi tiết sản phẩm
+            $row = $result->fetch_assoc();
+            echo "<div class='chitietproduct'>";
+            echo "<img src='img/" . $row["image"] . "' alt='" . $row["name"] . "' class='img'>";
+            echo "<div class='product' style='margin-left: 0%;'>";
+            echo "<h2 style = 'width : 100%; font-weight: bold; color: #5a0700; '>" . $row["name"] . "</h2>";
+            echo "<strong><a href='lienhe.php' style = ' color: black; font-size: 30px' >Giá: " . $row["price"] . " </a></strong>";
+            echo "<p><strong>Nhà sản xuất:</strong> " . $row["description"] . "</p>";
+            echo "<p><strong>Bảo hành: </strong>" . $row["baohanh"] . "</p>";
+            echo "<p><strong>Chất liệu: </strong>" . $row["chatlieu"] . "</p>";
+            echo "<p><strong>Thời gian đăng sản phẩm: </strong>" . $row["created_at"] . "</p>";
+            echo "<a href='lienhe.php'><button type='submit' name='lienhe' class='btn' style='background-color: #2f0000; color : white; font-weight : bold; margin-right: 5px; font-size: 15px;'>Liên hệ</button></a>";
+            echo "</div>";
+            echo "<div class= 'imagephu overlay'>";
+            echo "<img src='img/" . $row["image2"] . "' alt='" . $row["name"] . "' class='img1 overlay-trigger'>";
+            echo "<img src='img/" . $row["image3"] . "' alt='" . $row["name"] . "' class='img2 overlay-trigger'>";
+            echo "</div>";
+            echo "</div>";
+            echo "<hr style='border: 1px solid black; width: 70%; margin-top: 7%;'>";
+            echo "<div class= 'mota'>";
+            echo "<p style = 'font-size: 20px; margin-left: 5%; font-weight: bold; color: #5a0700;'>Mô tả: " . $row["mota"] . "</p>";
+            echo "</div>";
         } else {
-            echo "Không có sản phẩm nào.";
+            echo "Không tìm thấy sản phẩm.";
         }
-        $connect->close();
-        ?>
-  </ul>
-</section>
+    } else {
+        echo "Không tìm thấy id sản phẩm.";
+    }
+
+    // Đóng kết nối
+    $connect->close();
+    ?>
+    
+</div>
 <div class="phone-number">
-  <a href="tel:0986241439" style = "text-decoration: none;">
+  <a href="tel:0000000000" style = "text-decoration: none;">
     <span class="phone-icon">&#9742;</span>
-    <span class="phone-text">0986 241 439</span>
+    <span class="phone-text">00000000000</span>
   </a>
 </div>
+
 <footer>
     <img class="logo1" src="img\logo.jpg">
     <b style="font-family:'Comic sans MS'; font-size: 25px">Địa chỉ Công Ty TNHH MTV TRÚC ANH</b>
     <div class="footer">
             <div class="footer1">
               <p>Đường Tứ Kiệt, Thị Xã Cai Lậy, Tỉnh Tiền Giang</p>
-              <p>Điện thoại: <a href="tel:0986241439" style = "text-decoration: none; color: #ff9999">0986241439</a> - <a href="tel:0948905239" style = "text-decoration: none; color: #ff9999">0948905239</a></p>
-              <p>Email:<a href="mailto:trucanhcongty@gmail.com" style = "text-decoration: none; color: #ff9999"> trucanhcongty@gmail.com</a></p>
+              <p>Điện thoại: <a href="tel:0000000000" style = "text-decoration: none; color: #ff9999">0000000000</a> - <a href="tel:0000000000" style = "text-decoration: none; color: #ff9999">00000000000</a></p>
+              <p>Email:<a href="mailto:***@gmail.com" style = "text-decoration: none; color: #ff9999"> ***@gmail.com</a></p>
               <img src="img\Facebook_Logo.png" class="linklogo"> 
               <img src="img\Gmail_icon.png" class="linklogo"> 
             </div>
@@ -336,7 +294,5 @@ $connect->close();
       <p><?php echo date("Y"); ?> All rights reserved. Công Ty TNHH MTV TRÚC ANH <img class="logo2" src="img\logo.jpg"></p>
     </div>
     </div>
-   
-      </body>
+</body>
 </html>
-
