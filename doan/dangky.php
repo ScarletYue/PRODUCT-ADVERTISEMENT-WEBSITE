@@ -26,9 +26,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($_POST['password'] !== $_POST['repassword']) {
         echo "<p>Mật khẩu và nhập lại mật khẩu không khớp!</p>";
     } else {
-        // Sử dụng prepared statements để thêm người dùng mới vào cơ sở dữ liệu
-        $stmt = $connect->prepare("INSERT INTO login (username, password, ngaysinh, email, sodienthoai, diachi) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssssss", $username, $password, $ngaysinh, $email, $sodienthoai, $diachi);
+        $stmt = $connect->prepare("INSERT INTO login (username, password, ngaysinh, email, sodienthoai, diachi, dangnhap) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssssssi", $username, $password, $ngaysinh, $email, $sodienthoai, $diachi, $dangnhap);
+        
+        $dangnhap = 1; 
+
 
         if ($stmt->execute()) {
             echo "<p>Đăng ký thành công!</p>";
@@ -59,82 +61,6 @@ $connect->close();
             display: <?php echo $is_admin ? 'inline-block' : 'none'; ?>; /* Ẩn hoặc hiển thị nút tùy thuộc vào quyền admin */
         }
     </style>
-    <?php
-$username = "root"; // Khai báo username
-$password = "";      // Khai báo password
-$server   = "localhost";   // Khai báo server
-$dbname   = "webtintuc";   // Khai báo database
-
-// Kết nối database
-$connect = new mysqli($server, $username, $password, $dbname);
-
-// Kiểm tra nếu có yêu cầu đăng xuất
-if (isset($_GET['logout']) && $_GET['logout'] == 'true') {
-    // Xóa tất cả các biến phiên
-$_SESSION = array();
-    // Hủy phiên
- 
-session_destroy();
-// Chuyển hướng người dùng về trang đăng nhập
-    header('Location: index.php');   
-exit;
-}
-// Kiểm tra nếu có yêu cầu đăng xuất
-if (isset($_GET['logout']) && $_GET['logout'] == 'true') {
-  // Xóa tất cả các biến phiên
-  $_SESSION = array();
-  // Hủy phiên
-  session_destroy();
-  // Chuyển hướng người dùng về trang đăng nhập
-  header('Location: index.php');
-  exit;
-}
-
-// Kiểm tra xem đã submit form đăng nhập chưa
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  // Lấy dữ liệu từ form đăng nhập
-  $input_username = $_POST['username'];
-  $input_password = $_POST['password'];
-
-  // Kiểm tra xác thực thông tin đăng nhập của admin
-  if ($input_username === 'admin' && $input_password === 'admin123') {
-      // Đăng nhập thành công, lưu thông tin đăng nhập vào biến phiên        
-      $_SESSION['is_admin'] = true;
-      // Chuyển hướng người dùng đến trang chính
-      header('Location: index.php');
-      exit;
-  }
-
-  // Kiểm tra xác thực thông tin đăng nhập của người dùng thông thường
-  $check_login_query = "SELECT * FROM login WHERE username = '$input_username' AND password = '$input_password'";
-  $login_result = $connect->query($check_login_query);
-
-  // Xác thực thông tin đăng nhập
-  if ($login_result->num_rows > 0) {
-      // Lấy thông tin người dùng từ cơ sở dữ liệu
-      $user_row = $login_result->fetch_assoc();
-      
-      // Cập nhật số lần đăng nhập và thời điểm đăng nhập cuối cùng
-      $dangnhap = $user_row['dangnhap'] + 1;
-      // Cập nhật thông tin vào bảng login
-      $update_query = "UPDATE login SET dangnhap = $dangnhap WHERE username = '$input_username'";
-      if ($connect->query($update_query) === TRUE) {
-          // Đăng nhập thành công, lưu thông tin đăng nhập vào biến phiên        
-          $_SESSION['is_users'] = true;
-          // Chuyển hướng người dùng đến trang chính
-          header('Location: index.php');
-          exit;
-      } else {
-          echo "Lỗi khi cập nhật thông tin đăng nhập: " . $connect->error;
-      }
-  } else {
-      // Nếu cặp username và password không tồn tại trong bảng login, hiển thị thông báo lỗi
-      echo "Cặp username và password không tồn tại trong bảng login.";
-  }
-}
-
-$connect->close();
-?>
 
         <body>
       <div class="topnav">
@@ -157,10 +83,10 @@ $connect->close();
         <a href="vechungtoi.php">Về Chúng Tôi</a>
         <?php
         // Kết nối đến cơ sở dữ liệu MySQL
-        $username = "root"; // Khai báo username
-        $password = "";      // Khai báo password
+        $username = "id22123292_congtytrucanh"; // Khai báo username
+        $password = "-f9H9&+NfqFH/Uy9";      // Khai báo password
         $server   = "localhost";   // Khai báo server
-        $dbname   = "webtintuc";   // Khai báo database
+        $dbname   = "id22123292_webtintuc";   // Khai báo database
 
         // Kết nối database
         $connect = new mysqli($server, $username, $password, $dbname);
@@ -188,50 +114,6 @@ $connect->close();
         $connect->close();
         ?>        
         <a href="lienhe.php"> Liên hệ </a>
-
-        <?php if(isset($_SESSION['is_admin']) && $_SESSION['is_admin']): ?>
-    <!-- Nếu đăng nhập với tư cách admin, hiển thị nút "Quản lý" và "Đăng xuất" -->
-    <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin']): ?>
-    <a href="themsp.php"  style=" margin-right: 5px; margin-top: -6px; font-size: 15px;">Quản lý</a>
-    <?php endif; ?>
-    <a href="dangky.php?logout=true" class="btn btn-primary" style="background-color:rgb(93, 93, 93); margin-right: 5px; margin-top: -6px;">Đăng xuất</a>
-  <?php elseif(isset($_SESSION['is_users']) && $_SESSION['is_users']): ?>
-    <!-- Nếu đăng nhập với tư cách users, hiển thị nút "Quản lý" và "Đăng xuất" -->
-    <?php if (isset($_SESSION['is_users']) && $_SESSION['is_users']): ?>
-    <?php endif; ?>
-    <a href="dangky.php?logout=true" class="btn btn-primary" style="background-color:rgb(93, 93, 93); margin-right: 5px; margin-top: -6px;">Đăng xuất</a>
-<?php else: ?>
-    <!-- Nếu không phải admin, hiển thị nút "Đăng nhập" -->
-    <button class="btn btn-primary" style="background-color:rgb(93, 93, 93); margin-right: 5px; margin-top: -6px;" type="button" data-bs-toggle="modal" data-bs-target="#loginModal">
-        Đăng nhập
-    </button>
-<?php endif; ?>
-        <!-- Modal -->
-        <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel" style="color:black;">Đăng nhập</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-                            <div class="mb-3">
-                                <label for="username" class="form-label" style="color:black;">Tên đăng nhập</label>
-                                <input type="text" class="form-control" id="username" name="username" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="password" class="form-label" style="color:black;">Mật khẩu</label>
-                                <input type="password" class="form-control" id="password" name="password" required>
-                            </div>
-                            <button type="submit" class="btn " style = "background-color: #2f0000; color : white; font-weight : bold">Đăng nhập</button>
-                            <br>
-                            <b style="color:black;">Chưa có tài khoản--></b>  <a href="dangky.php" class="btn btn-primary" style="background-color: #2f0000; color : white; font-weight : bold; margin-right: 5px; font-size: 15px;">Đăng ký</a>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </header>
 
@@ -272,14 +154,20 @@ $connect->close();
             <div class="footer1">
               <p>Đường Tứ Kiệt, Thị Xã Cai Lậy, Tỉnh Tiền Giang</p>
               <p>Điện thoại: <a href="tel:0986241439" style = "text-decoration: none; color: #ff9999">0986241439</a> - <a href="tel:0948905239" style = "text-decoration: none; color: #ff9999">0948905239</a></p>
-              <p>Email:<a href="mailto:yenconguyet@gmail.com" style = "text-decoration: none; color: #ff9999"> cosomoctruc@gmail.com</a></p>
+              <p>Email:<a href="mailto:trucanhcongty@gmail.com" style = "text-decoration: none; color: #ff9999"> trucanhcongty@gmail.com</a></p>
               <img src="img\Facebook_Logo.png" class="linklogo"> 
               <img src="img\Gmail_icon.png" class="linklogo"> 
             </div>
             <div>
               <p class="tieude" style="font-size: 20px; margin-left: 15%;">Đăng ký thành viên</p>
-              <a href ="dangky.php"><button class="btn button-container" style="background-color: #2f0000; color : white; font-weight : bold; margin-right: 5px; font-size: 15px;">Đăng ký</button></a>
-              <p style=" margin-left: -10%;">Đăng ký với chúng tôi để nhận email về sản phẩm mới</p>
+              <?php if(isset($_SESSION['is_users']) && $_SESSION['is_users']): ?>
+                <!-- Nếu đăng nhập với tư cách users, hiển thị nút "Quản lý" và "Đăng xuất" -->
+                <?php if (isset($_SESSION['is_users']) && $_SESSION['is_users']): ?>
+                <?php endif; ?>
+                <a href="index.php?logout=true" class="btn button-container" style="background-color: #2f0000; color : white; font-weight : bold; margin-right: 5px; font-size: 17px;">Đăng xuất</a>
+            <?php else: ?>
+              <a href ="dangky.php"><button class="btn button-container" style="background-color: #2f0000; color : white; font-weight : bold; margin-right: 5px; font-size: 15px;" type="button" data-bs-toggle="modal" data-bs-target="#loginModal">Đăng ký</button></a>
+              <?php endif; ?>              <p style=" margin-left: -10%;">Đăng ký với chúng tôi để nhận email về sản phẩm mới</p>
             </div>
             <div class="map-container" style="margin-top: -10%;">
               <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3065.7441557469624!2d106.11229100929113!3d10.409458689674972!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a97a1a7da4895%3A0xf7827bdba1d622cf!2zTuG7mWkgdGjhuqV0IFRyw7pjIEFuaA!5e1!3m2!1sen!2sus!4v1714347346941!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>

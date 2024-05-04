@@ -231,10 +231,9 @@ $connect->close();
     <img src="img\card2.jpg" alt="Ảnh 2" class="img-2">
   </div>
   <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-  </div>
+    <h3 class="card-title">Kính Chào Mừng Quý Khách</h3>
+    <p class="card-text">Chào mừng bạn đến với bộ sưu tập sản phẩm làm bằng gỗ của chúng tôi! Tại đây, chúng tôi tự hào giới thiệu những sản phẩm chất lượng, được chế tác tinh tế từ gỗ tự nhiên. Từ những chiếc bàn, ghế, đến đồ trang trí nội thất và đồ dùng gia đình, mỗi món đồ đều mang đến không gian ấm áp và sang trọng cho ngôi nhà của bạn. Duyệt qua bộ sưu tập của chúng tôi để khám phá sự đẹp mắt và độ bền của các sản phẩm làm bằng gỗ độc đáo này!</p>
+    <a href="danhmucsp.php" class="btn btn-primary " style="background-color: #2f0000; color : white; font-weight : bold; margin-right: 5px; font-size: 15px;">Sản Phẩm</a>  </div>
 </div>
 </div>
 <section class="gioithieu">
@@ -256,7 +255,7 @@ $connect->close();
       <img src="img\card1.jpg" alt="Ảnh 1" class="img-3">
     </div>
   </div>
-  <button class="xem" style = " margin-bottom: 3%;"> Xem thêm </button>
+  <a href="vechungtoi.php" style = "text-decoration: none;"><button class="xem" style = " margin-bottom: 3%;"> Xem thêm </button></a>
 </section>
 <section style = 'margin-top: 3%; margin-bottom: 3%;'>
   <h2 class="vechungtoi" style = 'text-align: center; font-size: 50px' >Sản phẩm trưng bày</h2>
@@ -304,7 +303,6 @@ $connect->close();
     <span class="phone-text">0986 241 439</span>
   </a>
 </div>
-
 <footer>
     <img class="logo1" src="img\logo.jpg">
     <b style="font-family:'Comic sans MS'; font-size: 25px">Địa chỉ Công Ty TNHH MTV TRÚC ANH</b>
@@ -312,14 +310,20 @@ $connect->close();
             <div class="footer1">
               <p>Đường Tứ Kiệt, Thị Xã Cai Lậy, Tỉnh Tiền Giang</p>
               <p>Điện thoại: <a href="tel:0986241439" style = "text-decoration: none; color: #ff9999">0986241439</a> - <a href="tel:0948905239" style = "text-decoration: none; color: #ff9999">0948905239</a></p>
-              <p>Email:<a href="mailto:yenconguyet@gmail.com" style = "text-decoration: none; color: #ff9999"> cosomoctruc@gmail.com</a></p>
+              <p>Email:<a href="mailto:trucanhcongty@gmail.com" style = "text-decoration: none; color: #ff9999"> trucanhcongty@gmail.com</a></p>
               <img src="img\Facebook_Logo.png" class="linklogo"> 
               <img src="img\Gmail_icon.png" class="linklogo"> 
             </div>
             <div>
               <p class="tieude" style="font-size: 20px; margin-left: 15%;">Đăng ký thành viên</p>
-              <a href ="dangky.php"><button class="btn button-container" style="background-color: #2f0000; color : white; font-weight : bold; margin-right: 5px; font-size: 15px;">Đăng ký</button></a>
-              <p style=" margin-left: -10%;">Đăng ký với chúng tôi để nhận email về sản phẩm mới</p>
+              <?php if(isset($_SESSION['is_users']) && $_SESSION['is_users']): ?>
+                <!-- Nếu đăng nhập với tư cách users, hiển thị nút "Quản lý" và "Đăng xuất" -->
+                <?php if (isset($_SESSION['is_users']) && $_SESSION['is_users']): ?>
+                <?php endif; ?>
+                <a href="index.php?logout=true" class="btn button-container" style="background-color: #2f0000; color : white; font-weight : bold; margin-right: 5px; font-size: 17px;">Đăng xuất</a>
+            <?php else: ?>
+              <a href ="dangky.php"><button class="btn button-container" style="background-color: #2f0000; color : white; font-weight : bold; margin-right: 5px; font-size: 15px;" type="button" data-bs-toggle="modal" data-bs-target="#loginModal">Đăng ký</button></a>
+              <?php endif; ?>              <p style=" margin-left: -10%;">Đăng ký với chúng tôi để nhận email về sản phẩm mới</p>
             </div>
             <div class="map-container" style="margin-top: -10%;">
               <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3065.7441557469624!2d106.11229100929113!3d10.409458689674972!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a97a1a7da4895%3A0xf7827bdba1d622cf!2zTuG7mWkgdGjhuqV0IFRyw7pjIEFuaA!5e1!3m2!1sen!2sus!4v1714347346941!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -332,7 +336,7 @@ $connect->close();
       <p><?php echo date("Y"); ?> All rights reserved. Công Ty TNHH MTV TRÚC ANH <img class="logo2" src="img\logo.jpg"></p>
     </div>
     </div>
-  
+   
       </body>
 </html>
 

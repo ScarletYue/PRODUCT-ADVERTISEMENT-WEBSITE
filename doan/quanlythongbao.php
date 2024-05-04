@@ -184,7 +184,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Thiết lập nội dung email
         $mail->isHTML(true);
-        $mail->Subject = 'Thông báo mới từ cửa hàng';
+        $mail->Subject = 'Thông báo mới từ Công Ty Trúc Anh';
         $mail->Body    = '<b style="font-weight: bold; font-size: 20px;">Xin chào,</b><br><br>
                         <b style="font-weight: bold; font-size: 20px;">Có một thông báo mới từ Công Ty TRÚC ANH về sản phẩm: </b> <br><br>
                         <strong style="font-size: 30px;"> Tên sản phẩm 1:<br>' . $product1 . ' <br> </strong> <br><br>
@@ -224,11 +224,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               <img src="img\Facebook_Logo.png" class="linklogo"> 
               <img src="img\Gmail_icon.png" class="linklogo"> 
             </div>
-            <div>
-              <p class="tieude" style="font-size: 20px; margin-left: 15%;">Đăng ký thành viên</p>
-              <a href ="dangky.php"><button class="btn button-container" style="background-color: #2f0000; color : white; font-weight : bold; margin-right: 5px; font-size: 15px;">Đăng ký</button></a>
-              <p style=" margin-left: -10%;">Đăng ký với chúng tôi để nhận email về sản phẩm mới</p>
-            </div>
+            
             <div class="map-container" style="margin-top: -10%;">
               <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3065.7441557469624!2d106.11229100929113!3d10.409458689674972!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a97a1a7da4895%3A0xf7827bdba1d622cf!2zTuG7mWkgdGjhuqV0IFRyw7pjIEFuaA!5e1!3m2!1sen!2sus!4v1714347346941!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>

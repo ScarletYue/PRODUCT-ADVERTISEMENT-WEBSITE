@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>index</title>
+        <title>Về Chúng Tôi</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="css\index.css?v=<?php echo time(); ?>">
         <link rel="stylesheet" href="css\dmsp.css?v=<?php echo time(); ?>">
+        <link rel="stylesheet" href="css\vechungtoi.css?v=<?php echo time(); ?>">   
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5+z5G5CJd6J8kTC0gx0xbs+JDAWI5l/2fnv9J+Ld" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>      </head>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="js\hieuung.js" defer></script>
+
       </head>
     <style>
         .logout-btn {
@@ -197,43 +200,44 @@ $connect->close();
 
 <br>
 <h1 style = "text-align: center; margin-top: 2%; margin-bottom: 4%;" class='h1'>CÔNG TY TNHH MTV TRÚC ANH</h1>
-<div class="chitiet">
-    <?php
-    // Thông tin kết nối database
-    $username = "root";
-    $password = "";
-    $server = "localhost";
-    $dbname = "webtintuc";
 
-    // Kết nối đến cơ sở dữ liệu
-    $connect = new mysqli($server, $username, $password, $dbname);
-    if ($connect->connect_error) {
-        die("Kết nối không thành công: " . $connect->connect_error);
+<?php
+$username = "root";
+$password = "";
+$server = "localhost";
+$dbname = "webtintuc";
+
+// Kết nối đến cơ sở dữ liệu
+$connect = new mysqli($server, $username, $password, $dbname);
+if ($connect->connect_error) {
+    die("Kết nối không thành công: " . $connect->connect_error);
+}
+
+// Truy vấn dữ liệu từ bảng vechungtoi
+$sql = "SELECT * FROM vechungtoi";
+$result = $connect->query($sql);
+
+if ($result->num_rows > 0) {
+    // Hiển thị danh sách bài viết
+    while ($row = $result->fetch_assoc()) {
+      echo "<div class='bai_viet_container'>";
+      echo "<div class='bai_viet'>";
+      echo "<div id='snow'>";
+      echo "</div>";
+      echo "<p>" . $row["noidung"] . "</p>";
+      echo "</div>";
+      echo "</div>";
+      
     }
-    // Lấy id sản phẩm từ URL
-    if(isset($_GET['id'])) {
-        $vechungtoi_id = $_GET['id'];
+} else {
+    echo "Không có bài viết nào.";
+}
 
-        // Truy vấn dữ liệu của sản phẩm có id tương ứng
-        $sql = "SELECT * FROM vechungtoi WHERE id = $vechungtoi_id";
-        $result = $connect->query($sql);
+// Đóng kết nối
+$connect->close();
+?>
 
-        if ($result->num_rows > 0) {
-            // Hiển thị chi tiết sản phẩm
-            $row = $result->fetch_assoc();
-            echo "<div class= 'noidung'>";
-            echo "<p style = 'font-size: 20px; margin-left: 5%; font-weight: bold; color: #5a0700;'>" . $row["noidung"] . "</p>";
-            echo "</div>";
-        } else {
-            echo "Không tìm thấy nội dung.";
-        }
-    } else {
-        echo "Không tìm thấy id nội dung.";
-    }
 
-    // Đóng kết nối
-    $connect->close();
-    ?>
 
 <div class="phone-number">
   <a href="tel:0986241439" style = "text-decoration: none;">
@@ -249,14 +253,20 @@ $connect->close();
             <div class="footer1">
               <p>Đường Tứ Kiệt, Thị Xã Cai Lậy, Tỉnh Tiền Giang</p>
               <p>Điện thoại: <a href="tel:0986241439" style = "text-decoration: none; color: #ff9999">0986241439</a> - <a href="tel:0948905239" style = "text-decoration: none; color: #ff9999">0948905239</a></p>
-              <p>Email:<a href="mailto:yenconguyet@gmail.com" style = "text-decoration: none; color: #ff9999"> cosomoctruc@gmail.com</a></p>
+              <p>Email:<a href="mailto:trucanhcongty@gmail.com" style = "text-decoration: none; color: #ff9999"> trucanhcongty@gmail.com</a></p>
               <img src="img\Facebook_Logo.png" class="linklogo"> 
               <img src="img\Gmail_icon.png" class="linklogo"> 
             </div>
             <div>
               <p class="tieude" style="font-size: 20px; margin-left: 15%;">Đăng ký thành viên</p>
-              <a href ="dangky.php"><button class="btn button-container" style="background-color: #2f0000; color : white; font-weight : bold; margin-right: 5px; font-size: 15px;">Đăng ký</button></a>
-              <p style=" margin-left: -10%;">Đăng ký với chúng tôi để nhận email về sản phẩm mới</p>
+              <?php if(isset($_SESSION['is_users']) && $_SESSION['is_users']): ?>
+                <!-- Nếu đăng nhập với tư cách users, hiển thị nút "Quản lý" và "Đăng xuất" -->
+                <?php if (isset($_SESSION['is_users']) && $_SESSION['is_users']): ?>
+                <?php endif; ?>
+                <a href="index.php?logout=true" class="btn button-container" style="background-color: #2f0000; color : white; font-weight : bold; margin-right: 5px; font-size: 17px;">Đăng xuất</a>
+            <?php else: ?>
+              <a href ="dangky.php"><button class="btn button-container" style="background-color: #2f0000; color : white; font-weight : bold; margin-right: 5px; font-size: 15px;" type="button" data-bs-toggle="modal" data-bs-target="#loginModal">Đăng ký</button></a>
+              <?php endif; ?>              <p style=" margin-left: -10%;">Đăng ký với chúng tôi để nhận email về sản phẩm mới</p>
             </div>
             <div class="map-container" style="margin-top: -10%;">
               <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3065.7441557469624!2d106.11229100929113!3d10.409458689674972!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a97a1a7da4895%3A0xf7827bdba1d622cf!2zTuG7mWkgdGjhuqV0IFRyw7pjIEFuaA!5e1!3m2!1sen!2sus!4v1714347346941!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>

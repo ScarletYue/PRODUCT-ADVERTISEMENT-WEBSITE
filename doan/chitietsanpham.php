@@ -231,10 +231,7 @@ $connect->close();
             echo "<p><strong>Bảo hành: </strong>" . $row["baohanh"] . "</p>";
             echo "<p><strong>Chất liệu: </strong>" . $row["chatlieu"] . "</p>";
             echo "<p><strong>Thời gian đăng sản phẩm: </strong>" . $row["created_at"] . "</p>";
-            if (isset($_SESSION['is_users']) && $_SESSION['is_users']) {
-            echo "<form action='lienhe.php' method='post'>
-            <button type='submit' name='lienhe' class='btn' style='background-color: #2f0000; color : white; font-weight : bold; margin-right: 5px; font-size: 15px;'>Liên hệ</button>                </form>";
-            echo "<?php endif; ?>";}
+            echo "<a href='lienhe.php'><button type='submit' name='lienhe' class='btn' style='background-color: #2f0000; color : white; font-weight : bold; margin-right: 5px; font-size: 15px;'>Liên hệ</button></a>";
             echo "</div>";
             echo "<div class= 'imagephu overlay'>";
             echo "<img src='img/" . $row["image2"] . "' alt='" . $row["name"] . "' class='img1 overlay-trigger'>";
@@ -270,14 +267,20 @@ $connect->close();
             <div class="footer1">
               <p>Đường Tứ Kiệt, Thị Xã Cai Lậy, Tỉnh Tiền Giang</p>
               <p>Điện thoại: <a href="tel:0986241439" style = "text-decoration: none; color: #ff9999">0986241439</a> - <a href="tel:0948905239" style = "text-decoration: none; color: #ff9999">0948905239</a></p>
-              <p>Email:<a href="mailto:yenconguyet@gmail.com" style = "text-decoration: none; color: #ff9999"> cosomoctruc@gmail.com</a></p>
+              <p>Email:<a href="mailto:trucanhcongty@gmail.com" style = "text-decoration: none; color: #ff9999"> trucanhcongty@gmail.com</a></p>
               <img src="img\Facebook_Logo.png" class="linklogo"> 
               <img src="img\Gmail_icon.png" class="linklogo"> 
             </div>
             <div>
               <p class="tieude" style="font-size: 20px; margin-left: 15%;">Đăng ký thành viên</p>
-              <a href ="dangky.php"><button class="btn button-container" style="background-color: #2f0000; color : white; font-weight : bold; margin-right: 5px; font-size: 15px;">Đăng ký</button></a>
-              <p style=" margin-left: -10%;">Đăng ký với chúng tôi để nhận email về sản phẩm mới</p>
+              <?php if(isset($_SESSION['is_users']) && $_SESSION['is_users']): ?>
+                <!-- Nếu đăng nhập với tư cách users, hiển thị nút "Quản lý" và "Đăng xuất" -->
+                <?php if (isset($_SESSION['is_users']) && $_SESSION['is_users']): ?>
+                <?php endif; ?>
+                <a href="index.php?logout=true" class="btn button-container" style="background-color: #2f0000; color : white; font-weight : bold; margin-right: 5px; font-size: 17px;">Đăng xuất</a>
+            <?php else: ?>
+              <a href ="dangky.php"><button class="btn button-container" style="background-color: #2f0000; color : white; font-weight : bold; margin-right: 5px; font-size: 15px;" type="button" data-bs-toggle="modal" data-bs-target="#loginModal">Đăng ký</button></a>
+              <?php endif; ?>              <p style=" margin-left: -10%;">Đăng ký với chúng tôi để nhận email về sản phẩm mới</p>
             </div>
             <div class="map-container" style="margin-top: -10%;">
               <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3065.7441557469624!2d106.11229100929113!3d10.409458689674972!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a97a1a7da4895%3A0xf7827bdba1d622cf!2zTuG7mWkgdGjhuqV0IFRyw7pjIEFuaA!5e1!3m2!1sen!2sus!4v1714347346941!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
