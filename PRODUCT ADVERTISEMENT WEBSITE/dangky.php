@@ -141,9 +141,9 @@ $connect->close();
     </div>
 
     <div class="phone-number">
-  <a href="tel:0000000000" style = "text-decoration: none;">
+  <a href="tel:098xxxxxxx" style = "text-decoration: none;">
     <span class="phone-icon">&#9742;</span>
-    <span class="phone-text">00000000000</span>
+    <span class="phone-text">098xxxxxxx</span>
   </a>
 </div>
 
@@ -153,8 +153,8 @@ $connect->close();
     <div class="footer">
             <div class="footer1">
               <p>Đường Tứ Kiệt, Thị Xã Cai Lậy, Tỉnh Tiền Giang</p>
-              <p>Điện thoại: <a href="tel:0000000000" style = "text-decoration: none; color: #ff9999">0000000000</a> - <a href="tel:0000000000" style = "text-decoration: none; color: #ff9999">00000000000</a></p>
-              <p>Email:<a href="mailto:***@gmail.com" style = "text-decoration: none; color: #ff9999"> ***@gmail.com</a></p>
+              <p>Điện thoại: <a href="tel:098xxxxxxx" style = "text-decoration: none; color: #ff9999">098xxxxxxx</a> - <a href="tel:098xxxxxxx" style = "text-decoration: none; color: #ff9999">098xxxxxxx</a></p>
+              <p>Email:<a href="mailto:xxx@gmail.com" style = "text-decoration: none; color: #ff9999"> xxx@gmail.com</a></p>
               <img src="img\Facebook_Logo.png" class="linklogo"> 
               <img src="img\Gmail_icon.png" class="linklogo"> 
             </div>

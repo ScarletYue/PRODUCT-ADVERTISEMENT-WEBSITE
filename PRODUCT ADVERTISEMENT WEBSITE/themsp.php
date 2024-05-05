@@ -251,9 +251,9 @@ $connect->close();
 </script>
 
 <div class="phone-number">
-  <a href="tel:0000000000" style = "text-decoration: none;">
+  <a href="tel:098xxxxxxx" style = "text-decoration: none;">
     <span class="phone-icon">&#9742;</span>
-    <span class="phone-text">00000000000</span>
+    <span class="phone-text">098xxxxxxx</span>
   </a>
 </div>
 
